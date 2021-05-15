@@ -1,0 +1,22 @@
+readers:
+  -
+    name: World Clock
+    type: json
+    sla_ms: 500
+    site: http://worldclockapi.com
+    endpoint: /api/json/utc/now
+    json_path: $.currentDateTime
+  -
+    name: Japan Stock Exchange
+    type: regex
+    sla_ms: 2500
+    site: https://www.jpx.co.jp
+    endpoint: /
+    regex: <title>([\w\s]*)</title>
+  -
+    name: aiven
+    type: regex
+    sla_ms: 1000
+    site: https://aiven.io
+    endpoint: /
+    regex: (Freedom to build awesome applications)

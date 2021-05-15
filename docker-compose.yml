@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  producer:
+    restart: on-failure
+    image: producer:latest
+
+  consumer:
+    restart: on-failure
+    image: consumer:latest

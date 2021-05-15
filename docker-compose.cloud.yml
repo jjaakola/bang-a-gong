@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  producer:
+    restart: always
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=${KAFKAHOST}
+      - KAFKA_SSL_CA_FILE=./certs/ca.pem
+      - KAFKA_SSL_CERT_FILE=./certs/service.cert
+      - KAFKA_SSL_KEY_FILE=./certs/service.key
+    volumes:
+      - ./certs:/opt/statusmonitor/certs:ro
+
+  consumer:
+    restart: always
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=${KAFKAHOST}
+      - KAFKA_SSL_CA_FILE=./certs/ca.pem
+      - KAFKA_SSL_CERT_FILE=./certs/service.cert
+      - KAFKA_SSL_KEY_FILE=./certs/service.key
+      - PGHOST=${PGHOST}
+      - PGPORT=${PGPORT}
+      - PGSSLMODE=require
+      - PGUSER=${PGUSER}
+      - PGPW=${PGPW}
+      - PGDB=defaultdb
+      - PGAPPUSER=${PGUSER}
+      - PGAPPPW=${PGPW}
+      - PGAPPDB=api_statuses
+    volumes:
+      - ./certs:/opt/statusmonitor/certs:ro
